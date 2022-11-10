@@ -180,38 +180,48 @@ par(old_par)
 summary(rbic1)
 summary(rbic2)
 
-## -----------------------------------------------------------------------------
-s1 <- sparseRBIC_sampsplit(rbic1)
+## ---- eval = FALSE------------------------------------------------------------
+#  s1 <- sparseRBIC_sampsplit(rbic1)
 
-## -----------------------------------------------------------------------------
+## ---- echo = FALSE------------------------------------------------------------
+s1 <- sparseRBIC_sampsplit(rbic1, S = 10)
+
 s1$results %>%
   kable(digits = 5) %>% 
   kable_styling(full_width = FALSE)
 
-## -----------------------------------------------------------------------------
-s2 <- sparseRBIC_sampsplit(rbic2)
+## ---- eval = FALSE------------------------------------------------------------
+#  s2 <- sparseRBIC_sampsplit(rbic2)
 
-## -----------------------------------------------------------------------------
+## ---- echo = FALSE------------------------------------------------------------
+s2 <- sparseRBIC_sampsplit(rbic2, S = 10)
+
 s2$results %>%
   kable(digits = 5) %>% 
   kable_styling(full_width = FALSE)
 
-## ---- message=FALSE-----------------------------------------------------------
-set.seed(1)
-## Centered model
-b1 <- sparseRBIC_bootstrap(rbic1, B = 250)
+## ---- eval = FALSE, message=FALSE---------------------------------------------
+#  set.seed(1)
+#  ## Centered model
+#  b1 <- sparseRBIC_bootstrap(rbic1)
 
-## ---- echo = FALSE------------------------------------------------------------
+## ---- echo = FALSE, message= FALSE--------------------------------------------
+set.seed(1)
+b1 <- sparseRBIC_bootstrap(rbic1, B = 10)
+
 b1$results %>%
   kable(digits = 5) %>% 
   kable_styling(full_width = FALSE)
 
-## ---- message = FALSE---------------------------------------------------------
-set.seed(1)
-## Uncentered model
-b2 <- sparseRBIC_bootstrap(rbic2, B = 250)
+## ---- eval = FALSE, message = FALSE-------------------------------------------
+#  set.seed(1)
+#  ## Uncentered model
+#  b2 <- sparseRBIC_bootstrap(rbic2)
 
 ## ---- echo = FALSE------------------------------------------------------------
+set.seed(1)
+b2 <- sparseRBIC_bootstrap(rbic2, B = 10)
+
 b2$results %>%
   kable(digits = 5) %>% 
   kable_styling(full_width = FALSE)
@@ -283,26 +293,19 @@ old_par <- par(mfrow = c(4,2), mar = c(3, 4, 4, 2))
 n <- lapply(mcp, plot, log.l = TRUE)
 par(old_par)
 
-## -----------------------------------------------------------------------------
-scad <- list(
-  SRS  = sparseR(CASE ~ ., train, seed = 1, penalty = "SCAD"),            ## SRS model
-  APS  = sparseR(CASE ~ ., train, seed = 1, gamma = 0, penalty = "SCAD"), ## APS model
-  MES   = sparseR(CASE ~ ., train, seed = 1, k = 0, penalty = "SCAD"),    ## Main effects SCAD model
-  SRSp = sparseR(CASE ~ ., train, seed = 1, poly = 2, penalty = "SCAD")   ## SRS + polynomials
-)
-
 ## ---- echo = TRUE, eval = FALSE-----------------------------------------------
+#  scad <- list(
+#    SRS  = sparseR(CASE ~ ., train, seed = 1, penalty = "SCAD"),            ## SRS model
+#    APS  = sparseR(CASE ~ ., train, seed = 1, gamma = 0, penalty = "SCAD"), ## APS model
+#    MES   = sparseR(CASE ~ ., train, seed = 1, k = 0, penalty = "SCAD"),    ## Main effects SCAD model
+#    SRSp = sparseR(CASE ~ ., train, seed = 1, poly = 2, penalty = "SCAD")   ## SRS + polynomials
+#  )
+#  
 #  n <- lapply(scad, plot, log.l = TRUE)
-
-## ---- echo = FALSE, eval = TRUE, fig.height= 9, fig.width=7-------------------
-old_par <- par(mfrow = c(4,2), mar = c(3, 4, 4, 2))
-n <- lapply(scad, plot, log.l = TRUE)
-par(old_par)
 
 ## ---- echo = TRUE, eval = FALSE-----------------------------------------------
 #  lapply(lso, function(x) bind_rows(x$results_summary, x$results1se_summary))
 #  lapply(mcp, function(x) bind_rows(x$results_summary, x$results1se_summary))
-#  lapply(scad, function(x) bind_rows(x$results_summary, x$results1se_summary))
 
 ## ---- echo = FALSE, message = FALSE-------------------------------------------
 
@@ -314,13 +317,10 @@ mcp_sum <-
   lapply(mcp, function(x)
     bind_cols(x$results_summary[, c(1, 5, 2:4)], x$results1se_summary[, -c(1:2, 5)])) %>%
   bind_rows()
-scad_sum <-
-  lapply(scad, function(x)
-    bind_cols(x$results_summary[, c(1, 5, 2:4)], x$results1se_summary[, -c(1:2, 5)])) %>%
-  bind_rows()
 
-names(mcp_sum)[6:7] <- names(scad_sum)[6:7] <- names(lso_sum)[6:7] <- names(lso_sum)[4:5] <- names(mcp_sum)[4:5] <- names(scad_sum)[4:5] <-
+names(mcp_sum)[6:7] <- names(lso_sum)[6:7] <- names(lso_sum)[4:5] <- names(mcp_sum)[4:5] <- 
   c("Selected", "Saturation")
+  
 lso_sum %>% 
   kable(digits = 3) %>% 
   kable_styling("striped", full_width = FALSE) %>%
@@ -333,12 +333,6 @@ mcp_sum %>%
   add_header_above(header = c(" " = 3, "Min CV" = 2, "CV1se" = 2)) %>% 
   group_rows(index = c("SRM" = 2, "APM" = 2, "MEM" = 1, "SRMp" = 3)) 
   
-scad_sum %>% 
-  kable(digits = 3) %>% 
-  kable_styling("striped", full_width = FALSE) %>%
-  add_header_above(header = c(" " = 3, "Min CV" = 2, "CV1se" = 2)) %>% 
-  group_rows(index = c("SRS" = 2, "APS" = 2, "MES" = 1, "SRSp" = 3)) 
-    
 
 ## ---- fig.height=8, fig.width=7-----------------------------------------------
 
@@ -383,6 +377,6 @@ plot(lso$SRL)
 
 ## ---- eval = TRUE, echo=FALSE, fig.height=8, fig.width=7----------------------
 old_par <- par(mfrow = c(4,2))
-lapply(lso, plot, log.l = TRUE)
+res <- lapply(lso, plot, log.l = TRUE)
 par(old_par)
 
