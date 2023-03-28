@@ -4,7 +4,7 @@
 # Implementing ranked sparsity methods with sparseR
 
 [![codecov](https://codecov.io/gh/petersonR/sparseR/branch/main/graph/badge.svg)](https://app.codecov.io/gh/petersonR/sparseR)
-[![R-CMD-check](https://github.com/petersonR/sparseR/workflows/R-CMD-check/badge.svg)](https://github.com/petersonR/sparseR/actions)
+[![R-CMD-check](https://github.com/petersonR/sparseR/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/petersonR/sparseR/actions/workflows/R-CMD-check.yaml)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/sparseR)](https://CRAN.R-project.org/package=sparseR)
 
@@ -53,10 +53,6 @@ data(iris)
 set.seed(1321)
 
 srl <- sparseR(Sepal.Width ~ ., data = iris, k = 1, seed = 1)
-#> Warning: `terms_select()` was deprecated in recipes 0.1.17.
-#> Please use `recipes_eval_select()` instead.
-#> This warning is displayed once every 8 hours.
-#> Call `lifecycle::last_lifecycle_warnings()` to see where this warning was generated.
 srl
 #> 
 #> Model summary @ min CV:
