@@ -45,10 +45,10 @@ srl2 <- sparseR(pre_process = FALSE, model_matrix = X, y = iris$Sepal.Width, max
 srl2
 summary(srl2, at = "cv1se")
 
-## ---- echo = TRUE, eval = FALSE-----------------------------------------------
+## ----echo = TRUE, eval = FALSE------------------------------------------------
 #  plot(srl2)
 
-## ---- echo = FALSE, eval = TRUE, fig.height=8---------------------------------
+## ----echo = FALSE, eval = TRUE, fig.height=8----------------------------------
 old_par <- par(mfrow = c(2,1))
 plot(srl2)
 par(old_par)
@@ -84,7 +84,7 @@ effect_plot(srl, "Petal.Width", by = "Species")
 ## ----warning=FALSE------------------------------------------------------------
 effect_plot(srl_centered2min, "Petal.Width", by = "Species")
 
-## ---- echo = TRUE, eval = FALSE-----------------------------------------------
+## ----echo = TRUE, eval = FALSE------------------------------------------------
 #  plot(srl3, plot_type = "cv", ylim = c(0,.2))
 #  abline(h = min(srl3$fit$cve), col = "red")
 #  plot(srl_centered2min, plot_type = "cv", ylim = c(0,.2))
@@ -99,7 +99,7 @@ effect_plot(srl_centered2min, "Petal.Width", by = "Species")
 #  effect_plot(srl, "Petal.Width", by = "Species",
 #              plot.args = list(ylim = c(1.5, 4.8)))
 
-## ---- echo = FALSE, warning=FALSE, fig.height=6, fig.width=8, out.width="100%"----
+## ----echo = FALSE, warning=FALSE, fig.height=6, fig.width=8, out.width="100%"----
 old_par <- par(mfrow = c(2,3), mar = c(4,4,5,2) + .1)
 plot(srl3, plot_type = "cv", ylim = c(0,.2))
 title("Centered to zero", line = 3)
@@ -139,7 +139,7 @@ p6 <- predict(srl, at = "cv1se")
 cor(cbind(p1, p2 ,p3, p4,p5,p6))
 pairs(cbind(p1, p2 ,p3, p4,p5,p6))
 
-## ---- echo = FALSE, eval = TRUE, warning=FALSE--------------------------------
+## ----echo = FALSE, eval = TRUE, warning=FALSE---------------------------------
 old_par <- par(mfrow = c(1,3))
 effect_plot(srl3, "Petal.Width", by = "Species", at = "cv1se", 
             plot.args = list(ylim = c(1.5, 5)))
@@ -149,12 +149,12 @@ effect_plot(srl, "Petal.Width", by = "Species", at = "cv1se",
             plot.args = list(ylim = c(1.5, 5)))
 par(old_par)
 
-## ---- echo = TRUE, eval = FALSE, warning = FALSE------------------------------
+## ----echo = TRUE, eval = FALSE, warning = FALSE-------------------------------
 #  effect_plot(srl3, "Petal.Width", by = "Species", at = "cv1se")
 #  effect_plot(srl_centered2min, "Petal.Width", by = "Species", at = "cv1se")
 #  effect_plot(srl, "Petal.Width", by = "Species", at = "cv1se")
 
-## ---- warning = FALSE---------------------------------------------------------
+## ----warning = FALSE----------------------------------------------------------
 ## Centered model
 (rbic1 <- sparseRBIC_step(Sepal.Width ~ ., iris, pre_proc_opts = c("center", "scale")))
 
@@ -162,13 +162,13 @@ par(old_par)
 (rbic2 <- sparseRBIC_step(Sepal.Width ~ ., iris, pre_proc_opts = c("scale")))
 
 
-## ---- echo = TRUE, eval=FALSE, warning = FALSE--------------------------------
+## ----echo = TRUE, eval=FALSE, warning = FALSE---------------------------------
 #  effect_plot(rbic1, "Petal.Width", by = "Species", plot.args = list(ylim = c(1.5, 5)))
 #  effect_plot(rbic2, "Petal.Width", by = "Species", plot.args = list(ylim = c(1.5, 5)))
 #  effect_plot(rbic1, "Sepal.Length", by = "Species")
 #  effect_plot(rbic2, "Sepal.Length", by = "Species")
 
-## ---- echo = FALSE, eval=TRUE, warning = FALSE, fig.height=8, fig.width = 6----
+## ----echo = FALSE, eval=TRUE, warning = FALSE, fig.height=8, fig.width = 6----
 old_par <- par(mfrow = c(2,2))
 effect_plot(rbic1, "Petal.Width", by = "Species", plot.args = list(ylim = c(1.5, 5)))
 effect_plot(rbic2, "Petal.Width", by = "Species", plot.args = list(ylim = c(1.5, 5)))
@@ -180,32 +180,32 @@ par(old_par)
 summary(rbic1)
 summary(rbic2)
 
-## ---- eval = FALSE------------------------------------------------------------
+## ----eval = FALSE-------------------------------------------------------------
 #  s1 <- sparseRBIC_sampsplit(rbic1)
 
-## ---- echo = FALSE------------------------------------------------------------
+## ----echo = FALSE-------------------------------------------------------------
 s1 <- sparseRBIC_sampsplit(rbic1, S = 10)
 
 s1$results %>%
   kable(digits = 5) %>% 
   kable_styling(full_width = FALSE)
 
-## ---- eval = FALSE------------------------------------------------------------
+## ----eval = FALSE-------------------------------------------------------------
 #  s2 <- sparseRBIC_sampsplit(rbic2)
 
-## ---- echo = FALSE------------------------------------------------------------
+## ----echo = FALSE-------------------------------------------------------------
 s2 <- sparseRBIC_sampsplit(rbic2, S = 10)
 
 s2$results %>%
   kable(digits = 5) %>% 
   kable_styling(full_width = FALSE)
 
-## ---- eval = FALSE, message=FALSE---------------------------------------------
+## ----eval = FALSE, message=FALSE----------------------------------------------
 #  set.seed(1)
 #  ## Centered model
 #  b1 <- sparseRBIC_bootstrap(rbic1)
 
-## ---- echo = FALSE, message= FALSE--------------------------------------------
+## ----echo = FALSE, message= FALSE---------------------------------------------
 set.seed(1)
 b1 <- sparseRBIC_bootstrap(rbic1, B = 10)
 
@@ -213,12 +213,12 @@ b1$results %>%
   kable(digits = 5) %>% 
   kable_styling(full_width = FALSE)
 
-## ---- eval = FALSE, message = FALSE-------------------------------------------
+## ----eval = FALSE, message = FALSE--------------------------------------------
 #  set.seed(1)
 #  ## Uncentered model
 #  b2 <- sparseRBIC_bootstrap(rbic2)
 
-## ---- echo = FALSE------------------------------------------------------------
+## ----echo = FALSE-------------------------------------------------------------
 set.seed(1)
 b2 <- sparseRBIC_bootstrap(rbic2, B = 10)
 
@@ -269,10 +269,10 @@ lso <- list(
 ## -----------------------------------------------------------------------------
 lso
 
-## ---- echo = TRUE, eval = FALSE-----------------------------------------------
+## ----echo = TRUE, eval = FALSE------------------------------------------------
 #  n <- lapply(lso, plot, log.l = TRUE)
 
-## ---- echo = FALSE, eval = TRUE, fig.height= 9, fig.width=7-------------------
+## ----echo = FALSE, eval = TRUE, fig.height= 9, fig.width=7--------------------
 old_par <- par(mfrow = c(4,2), mar = c(3, 4, 4, 2))
 n <- lapply(lso, plot, log.l = TRUE)
 par(old_par)
@@ -285,15 +285,15 @@ mcp <- list(
   SRMp = sparseR(CASE ~ ., train, seed = 1, poly = 2, penalty = "MCP")   ## SRM + polynomials
 )
 
-## ---- echo = TRUE, eval = FALSE-----------------------------------------------
+## ----echo = TRUE, eval = FALSE------------------------------------------------
 #  n <- lapply(mcp, plot, log.l = TRUE)
 
-## ---- echo = FALSE, eval = TRUE, fig.height= 9, fig.width=7-------------------
+## ----echo = FALSE, eval = TRUE, fig.height= 9, fig.width=7--------------------
 old_par <- par(mfrow = c(4,2), mar = c(3, 4, 4, 2))
 n <- lapply(mcp, plot, log.l = TRUE)
 par(old_par)
 
-## ---- echo = TRUE, eval = FALSE-----------------------------------------------
+## ----echo = TRUE, eval = FALSE------------------------------------------------
 #  scad <- list(
 #    SRS  = sparseR(CASE ~ ., train, seed = 1, penalty = "SCAD"),            ## SRS model
 #    APS  = sparseR(CASE ~ ., train, seed = 1, gamma = 0, penalty = "SCAD"), ## APS model
@@ -303,11 +303,11 @@ par(old_par)
 #  
 #  n <- lapply(scad, plot, log.l = TRUE)
 
-## ---- echo = TRUE, eval = FALSE-----------------------------------------------
+## ----echo = TRUE, eval = FALSE------------------------------------------------
 #  lapply(lso, function(x) bind_rows(x$results_summary, x$results1se_summary))
 #  lapply(mcp, function(x) bind_rows(x$results_summary, x$results1se_summary))
 
-## ---- echo = FALSE, message = FALSE-------------------------------------------
+## ----echo = FALSE, message = FALSE--------------------------------------------
 
 lso_sum <-
   lapply(lso, function(x)
@@ -334,7 +334,7 @@ mcp_sum %>%
   group_rows(index = c("SRM" = 2, "APM" = 2, "MEM" = 1, "SRMp" = 3)) 
   
 
-## ---- fig.height=8, fig.width=7-----------------------------------------------
+## ----fig.height=8, fig.width=7------------------------------------------------
 
 ## Load Data set, correctly code factors + outcome
 data("Detrano")
@@ -372,10 +372,10 @@ lso <- list(
 lso
 plot(lso$SRL)
 
-## ---- echo = TRUE, eval = FALSE-----------------------------------------------
+## ----echo = TRUE, eval = FALSE------------------------------------------------
 #  lapply(lso, plot, log.l = TRUE)
 
-## ---- eval = TRUE, echo=FALSE, fig.height=8, fig.width=7----------------------
+## ----eval = TRUE, echo=FALSE, fig.height=8, fig.width=7-----------------------
 old_par <- par(mfrow = c(4,2))
 res <- lapply(lso, plot, log.l = TRUE)
 par(old_par)

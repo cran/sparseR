@@ -1,3 +1,10 @@
+# 0.2.3
+
+- Fixed bug that caused error when making predictions 
+  without outcome variable in `newdata` in `predict.sparseR`
+  ((issue 3)[https://github.com/petersonR/sparseR/issues/3])
+- Fixed issue in recipes revdepcheck. 
+
 # 0.2.2
 
 - update readme

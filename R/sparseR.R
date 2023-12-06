@@ -317,6 +317,14 @@ predict.sparseR <- function(object, newdata, lambda, at = c("cvmin", "cv1se"), .
     }
   } else {
     if(!is.null(object$srprep)) {
+      outcome_name <- object$srprep$var_info$variable[
+        object$srprep$var_info$role == "outcome"
+      ]
+
+      # If the outcome isn't included in newdata, use temp placeholder
+      if(!any(names(newdata) == outcome_name))
+        newdata[[outcome_name]] <- rep(object$srprep$outcome[1], nrow(newdata))
+
       X <- as.matrix(bake(object$srprep, newdata, everything(), -all_outcomes()))
     } else {
       X <- as.matrix(newdata)
