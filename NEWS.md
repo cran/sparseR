@@ -1,3 +1,11 @@
+# 0.2.4
+
+- Fixed bug in the `effect_plot` function that was causing issues with 
+  numeric `by` variables
+- Add control statement for plotting residuals (thanks to Max McGrath)
+- Improving test coverage
+- Allow moving legend location for `effect_plot`
+
 # 0.2.3
 
 - Fixed bug that caused error when making predictions 

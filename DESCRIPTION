@@ -2,7 +2,7 @@ Package: sparseR
 Type: Package
 Title: Variable Selection under Ranked Sparsity Principles for
         Interactions and Polynomials
-Version: 0.2.3
+Version: 0.3.0
 Authors@R: person("Ryan Andrew", "Peterson", 
                   email = "ryan.a.peterson@cuanschutz.edu", 
                   role = c("aut", "cre"),
@@ -30,14 +30,14 @@ License: GPL-3
 Encoding: UTF-8
 LazyData: true
 VignetteBuilder: knitr
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.1
 URL: https://petersonr.github.io/sparseR/,
         https://github.com/petersonR/sparseR/
-Date: 2023-12-04
+Date: 2024-06-25
 NeedsCompilation: no
-Packaged: 2023-12-06 17:00:53 UTC; ryanpeterson
+Packaged: 2024-06-26 04:10:58 UTC; petryan
 Author: Ryan Andrew Peterson [aut, cre]
     (<https://orcid.org/0000-0002-4650-5798>)
 Maintainer: Ryan Andrew Peterson <ryan.a.peterson@cuanschutz.edu>
 Repository: CRAN
-Date/Publication: 2023-12-06 18:20:02 UTC
+Date/Publication: 2024-06-26 04:30:02 UTC

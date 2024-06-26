@@ -83,6 +83,7 @@ pal <- function (n, alpha = 1) {
 #' @param nn number of points to plot along prediction line
 #' @param plot.args list of arguments passed to the plot itself
 #' @param resids should residuals be plotted or not?
+#' @param legend_location location for legend passed to `legend`
 #' @param ... additional arguments
 #' @return nothing returned
 #' @export
@@ -96,7 +97,9 @@ effect_plot <- function(fit, ...) {
 #' @method effect_plot sparseR
 effect_plot.sparseR <- function(fit, coef_name, at = c("cvmin", "cv1se"),
                         by = NULL, by_levels, nn = 101,
-                        plot.args = list(), resids = TRUE, ...) {
+                        plot.args = list(), resids = TRUE,
+                        legend_location = "bottomright",
+                        ...) {
 
 
   if(is.null(fit$srprep))
@@ -148,8 +151,8 @@ effect_plot.sparseR <- function(fit, coef_name, at = c("cvmin", "cv1se"),
   } else
     new_data[[coef_name]] <- seq(min(fit$data[[coef_name]]), max(fit$data[[coef_name]]), length = nn)
 
-  if(!length(plot.args$legloc))
-    plot.args$legloc <- "bottomright"
+  if(!length(legend_location))
+    legend_location <- "bottomright"
 
   # Validate plot.args
   if(!length(plot.args$ylab))
@@ -276,7 +279,7 @@ effect_plot.sparseR <- function(fit, coef_name, at = c("cvmin", "cv1se"),
 
 
         leg_lab <- paste0(by, ": ", unname(by_levels))
-        legend(plot.args$legloc, legend = leg_lab, col = cols, lwd = 2, bty = "n", lty = lty)
+        legend(legend_location, legend = leg_lab, col = cols, lwd = 2, bty = "n", lty = lty)
 
         ## Factor main covariate
       } else
@@ -290,8 +293,8 @@ effect_plot.sparseR <- function(fit, coef_name, at = c("cvmin", "cv1se"),
       if(!cfact) {
         if(missing(by_levels)) {
           by_levels <- quantile(fit$data[[by]], c(.1, .5, .9), na.rm = TRUE)
-          closest_level <- apply(sapply(by_levels, function(x) (abs(x - fit$data[[by]]))), 1, which.min)
         }
+        closest_level <- apply(sapply(by_levels, function(x) (abs(x - fit$data[[by]]))), 1, which.min)
 
         resid <- preds <- list()
         for(b in 1:length(by_levels)) {
@@ -325,13 +328,14 @@ effect_plot.sparseR <- function(fit, coef_name, at = c("cvmin", "cv1se"),
         ll <- lapply(1:length(by_levels), function(i) {
           lines(new_data[[coef_name]], preds[[i]], lwd = 2, col = cols[i])
         })
-
-        pp <- lapply(1:length(by_levels), function(i) {
-          points(fit$data[[coef_name]][closest_level == i], resid[[i]], pch = 20, col = cols[i])
-        })
+        if (resids) {
+          pp <- lapply(1:length(by_levels), function(i) {
+            points(fit$data[[coef_name]][closest_level == i], resid[[i]], pch = 20, col = cols[i])
+          })
+        }
 
         leg_lab <- paste0(by, ": ", round(unname(by_levels),2))
-        legend(plot.args$legloc, legend = leg_lab, col = cols, lwd = 2, bty = "n")
+        legend(legend_location, legend = leg_lab, col = cols, lwd = 2, bty = "n")
 
         ## factor covariate by numeric one
       } else {
@@ -344,12 +348,14 @@ effect_plot.sparseR <- function(fit, coef_name, at = c("cvmin", "cv1se"),
 
 
 #' @rdname effect_plot
+#'
 #' @export
 #' @method effect_plot sparseRBIC
 #' @return Nothing (invisible) returned
 effect_plot.sparseRBIC <- function(fit, coef_name,
                                 by = NULL, by_levels, nn = 101,
-                                plot.args = list(), resids = TRUE, ...) {
+                                plot.args = list(), resids = TRUE,
+                                legend_location =  "bottomright", ...) {
 
 
   if(is.null(fit$srprep))
@@ -398,9 +404,6 @@ effect_plot.sparseRBIC <- function(fit, coef_name,
   } else
     new_data[[coef_name]] <- seq(min(fit$data[[coef_name]], na.rm = TRUE),
                                  max(fit$data[[coef_name]], na.rm = TRUE), length = nn)
-
-  if(!length(plot.args$legloc))
-    plot.args$legloc <- "bottomright"
 
   # Validate plot.args
   if(!length(plot.args$ylab))
@@ -527,7 +530,7 @@ effect_plot.sparseRBIC <- function(fit, coef_name,
 
 
         leg_lab <- paste0(by, ": ", unname(by_levels))
-        legend(plot.args$legloc, legend = leg_lab, col = cols, lwd = 2, bty = "n", lty = lty)
+        legend(legend_location, legend = leg_lab, col = cols, lwd = 2, bty = "n", lty = lty)
 
         ## Factor main covariate
       } else
@@ -582,7 +585,7 @@ effect_plot.sparseRBIC <- function(fit, coef_name,
         })
 
         leg_lab <- paste0(by, ": ", round(unname(by_levels),2))
-        legend(plot.args$legloc, legend = leg_lab, col = cols, lwd = 2, bty = "n")
+        legend(legend_location, legend = leg_lab, col = cols, lwd = 2, bty = "n")
 
         ## factor covariate by numeric one
       } else {

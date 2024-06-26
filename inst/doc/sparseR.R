@@ -1,5 +1,5 @@
 ## ----setup, include=FALSE-----------------------------------------------------
-knitr::opts_chunk$set(echo = TRUE, fig.height = 5, fig.width = 7)
+knitr::opts_chunk$set(echo = TRUE, fig.height = 5, fig.width = 7, collapse = TRUE)
 library(recipes)
 library(dplyr)
 library(knitr)
@@ -241,7 +241,7 @@ trainIDX <- sample(1:N, N * .75)
 train <- irlcs_radon_syn[trainIDX,]
 test <- irlcs_radon_syn[-trainIDX,]
 
-## -----------------------------------------------------------------------------
+## ----results = "hold"---------------------------------------------------------
 prep_obj <- sparseR_prep(CASE ~ ., data = train, k = 0, poly = 1)
 prep_obj
 
@@ -334,7 +334,7 @@ mcp_sum %>%
   group_rows(index = c("SRM" = 2, "APM" = 2, "MEM" = 1, "SRMp" = 3)) 
   
 
-## ----fig.height=8, fig.width=7------------------------------------------------
+## -----------------------------------------------------------------------------
 
 ## Load Data set, correctly code factors + outcome
 data("Detrano")
