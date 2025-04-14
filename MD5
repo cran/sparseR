@@ -1,6 +1,6 @@
-707934292d904fc242517b177abac3e2 *DESCRIPTION
+75a75f66f4423599c9d643e961e62c7c *DESCRIPTION
 3672d0cda22d3b8c3937642976718e59 *NAMESPACE
-9cd17488fae14704dbe5e857a7562299 *NEWS.md
+4f8d1d6f564d4a512d5b58e22f136b68 *NEWS.md
 c03de61195ba02241786ed4e90358b9c *R/custom_ICs.R
 b477490b9eab2a52d76f14c42ec12289 *R/custom_step_helpers.R
 fe6f36542247518c7626f7d1856a76cb *R/data.R
@@ -20,9 +20,9 @@ b91e7688e9fd45f48600fdd7acea03e7 *data/Detrano.RData
 22a0997fa730c0ab066e645d4c692378 *data/Sheddon_small.RData
 9479c744852d03eb8543ed6e1d819532 *data/irlcs_radon_syn.RData
 4758e782e72f79f673448ffd9005cd79 *inst/CITATION
-23f5593f029288d92929cfd6ed473236 *inst/doc/sparseR.R
-b06314a14d0bb121c941927074cf9572 *inst/doc/sparseR.Rmd
-dd11ebf621e1c23e78ebd7948b373ad7 *inst/doc/sparseR.html
+7549900a5612543b709a6bea1a80da45 *inst/doc/sparseR.R
+92f8eb685892c42a5a324172f6bca9eb *inst/doc/sparseR.Rmd
+6e0b9b4f009921bf9da395e1d8ecfd8d *inst/doc/sparseR.html
 edf7e3c5fd319753e9b748bcda8cd971 *man/custom_ics.Rd
 e0964447540f2121f41bf0691712eedf *man/datasets.Rd
 050e8a0bcae4bcae80cd5544ae68590f *man/effect_plot.Rd
@@ -50,4 +50,4 @@ a0e099adfb7abf473de592ec2bf6683e *tests/testthat/test_sparseR.R
 2c5079a49ba0ac231c3a67b6978196c2 *tests/testthat/test_sparseR_matrix.R
 5f620754c839463938389da70aeb13d5 *tests/testthat/test_sparseR_methods.R
 198a2f694cca818bae4824a5d544c720 *tests/testthat/test_sparseR_surv.R
-b06314a14d0bb121c941927074cf9572 *vignettes/sparseR.Rmd
+92f8eb685892c42a5a324172f6bca9eb *vignettes/sparseR.Rmd
